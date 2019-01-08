@@ -7,6 +7,7 @@ class PokemonShared extends Component {
     return (
       <View>
         <Header />
+        <Text>Pokemon Shared</Text>
       </View>
     );
   }
