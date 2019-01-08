@@ -41,7 +41,6 @@ const MenuConfig = {
     initialRouteName: 'PokemonSearch',
     tabBarOptions: {
         showLabel: false,
-        backgroundColor: '#00000'
     },
 }
 
