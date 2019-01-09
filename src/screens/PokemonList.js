@@ -12,7 +12,7 @@ class PokemonList extends Component {
         loading: true
     }
 
-    componentDidMount = async() => {
+    componentDidMount = async () => {
         this.getPokemons()
     }
 
