@@ -19,54 +19,32 @@ class PokemonList extends Component {
     getPokemons = async () => {
         try {
             const res = await axios.get(`${server}/pokemon`)
-            const pokemons = res.data.results
-            console.log(pokemons)
+            const pokemons = res.data.results.filter((item, index) => {
+                if(index < 100){
+                    return item
+                }
+            })
             this.setState({ pokemons, loading: false })
         } catch (error) {
             console.log(error)
         }
     }
 
-    test = item => {
-        console.log(item.name)
-        console.log(this.state.pokemons.length)
-    }
-
     render() {
-        const loader = <ActivityIndicator size="large" color="tintColor" />
-        const main = <View style={styles.container}><Text>color</Text></View>
-        const listItem = <View style={styles.listItem}></View>
-            /*<FlatList
+        const loader = <ActivityIndicator style={styles.loading} size="large" color="tintColor" />
+        const list = 
+        <ScrollView>
+            <FlatList
                 data={this.state.pokemons}
-                style={styles.flatlist}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => {
-                    return (
-                        <View>
-                            {this.test(item)}
-                            <Text style={styles.textList}>{item.name}</Text>
-                        </View>
-                    )
-                }}
-
-                <FlatList
-                        style={styles.listContainer}
-                        data={this.state.pokemons}
-                        renderItem={({item}) => <CardPokemon {...item} />}
-                        keyExtractor={(item, index) => index}
-                />
-            />*/
+                renderItem={({item}) => <CardPokemon {...item} />}
+                keyExtractor ={(item, index) => index.toString()}
+            />
+        </ScrollView>
 
         return (
             <View style={styles.container}>
                 <Header />
-                <ScrollView>
-                    <FlatList
-                        data={this.state.pokemons}
-                        renderItem={({item}) => <CardPokemon {...item} />}
-                        keyExtractor={(item, index) => index}
-                    />
-                </ScrollView>
+                { this.state.loading ? loader : list }
             </View>
         )
     }
@@ -77,18 +55,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F5FCFF'
     },
-    scrollview: {
-        flex: 1,
-        flexDirection: 'row',
-    },
-    listContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        paddingLeft: 15,
-        paddingRight: 15,
-        backgroundColor: 'blue',
-
-    },
+    loading: {
+        marginTop: 70
+    }
 })
 
 export default PokemonList
