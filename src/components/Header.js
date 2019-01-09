@@ -5,25 +5,30 @@ import imgLogo from '../../assets/img/pokebola-go.png'
 class Header extends Component {
     render() {
         return (
-            <View style={styles.header}>
-                <Image 
-                    style={styles.imgLogo} 
-                    source={imgLogo}
-                />
+            <View style={styles.container}>
+                <View style={styles.rowContainer}>
+                    <Image source={imgLogo} style={styles.image} />
+                </View>
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    header: {
+    container: {
         marginTop: Platform.OS === 'ios' ? 20 : 0,
-        padding: 15,
+        padding: 10,
+        borderBottomWidth: 1,
+        borderColor: '#BBB',
         width: '100%',
-        backgroundColor: 'white',
     },
-    imgLogo: {
-        alignSelf: 'center',
+    rowContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    image: {
+        width: 70,
+        resizeMode: 'contain',
     },
 })
 
