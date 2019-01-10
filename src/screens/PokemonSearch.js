@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Platform, StyleSheet, Text, View, TextInput, Image, FlatList } from 'react-native';
+import { Platform, StyleSheet, Text, View, TextInput, Image, FlatList, ActivityIndicator } from 'react-native';
 import Header from '../components/Header'
 import Input from '../components/Input'
 import CardPokemon from '../components/CardPokemon'
@@ -16,16 +16,31 @@ class PokemonShared extends Component {
   }
 
   handlerInput = async pokemonName => {
-
+    this.setState({ loading: true })
     this.setState({pokemonName})
-    const pokemonNameFormated = pokemonName.toLowerCase()
+    this.getPokemon(pokemonName.toLowerCase());
+  }
 
-    if(pokemonNameFormated.length > 0){
+  componentDidMount(){
+    console.log('montou')
+  }
+
+  /*getParamsNavigation = () => {
+    const { navigation } = this.props;
+    let pokemonName = navigation.getParam('pokemonName', '')
+    if(pokemonName.length > 0){
+      this.setState({pokemonName}).then(()=>{pokemonName = ''})
+      console.log(this.state)
+    }
+  }*/
+
+  getPokemon = async name => {
+    if(name.length > 0){
       try {
-        const res = await axios.get(`${server}/pokemon/${pokemonNameFormated}`)
-        this.setState({pokemonSearch: res.data})
-        this.setState({showPokemon: true})
+        const res = await axios.get(`${server}/pokemon/${name}`)
+        this.setState({ pokemonSearch: res.data, showPokemon: true, loading: false })
       } catch (error) {
+        this.setState({ showPokemon: false, pokemonSearch: null, loading: false })
         console.log(error)
       }
     }
@@ -53,8 +68,10 @@ class PokemonShared extends Component {
   }
 
   render() {
-    let imgPokemonUri = this.state.pokemonSearch ? {uri: this.state.pokemonSearch.sprites.front_default} : null
+    const imgPokemonUri = this.state.pokemonSearch ? {uri: this.state.pokemonSearch.sprites.front_default} : null
     const imgJsx = <Image source={imgPokemonUri} style={styles.pokemonImg} />
+    const loader = <ActivityIndicator style={styles.loading} size="large" color="tintColor" />
+
 
     return (
       <View style={styles.container}>
@@ -65,7 +82,7 @@ class PokemonShared extends Component {
               value={this.state.pokemonName} />
         </View>
         { this.state.pokemonSearch ? imgJsx : null }
-        { this.handlerRender() }
+        { this.state.loading ? loader : this.handlerRender() }
       </View>
     );
   }
@@ -96,7 +113,7 @@ const styles = StyleSheet.create({
       flex: 3,
       flexDirection: 'row',
       justifyContent: 'flex-start'
-    }
+    },
 })
 
 export default PokemonShared

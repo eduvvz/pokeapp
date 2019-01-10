@@ -1,14 +1,14 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image } from 'react-native'
+import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
 import pokebola from '../../assets/img/pokebola.png';
 
 export default props => {
 
     return (
-        <View style={styles.card}>
+        <TouchableOpacity style={styles.card} onPress={props.onPress}>
             <Image style={styles.icon} source={pokebola}/>
             <Text style={styles.text}>{props.name}</Text>
-        </View>
+        </TouchableOpacity>
     )
 }
 

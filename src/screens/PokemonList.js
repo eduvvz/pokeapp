@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Platform, StyleSheet, Text, View, ActivityIndicator, ScrollView, FlatList, List} from 'react-native'
+import {Platform, StyleSheet, Text, View, ActivityIndicator, ScrollView, FlatList, Button} from 'react-native'
 import Header from '../components/Header'
 import { server } from '../common'
 import axios from 'axios'
@@ -33,13 +33,19 @@ class PokemonList extends Component {
     render() {
         const loader = <ActivityIndicator style={styles.loading} size="large" color="tintColor" />
         const list = 
-        <ScrollView>
-            <FlatList
-                data={this.state.pokemons}
-                renderItem={({item}) => <CardPokemon {...item} />}
-                keyExtractor ={(item, index) => index.toString()}
-            />
-        </ScrollView>
+            <ScrollView>
+                <FlatList
+                    data={this.state.pokemons}
+                    renderItem={({item}) => 
+                        <CardPokemon 
+                            {...item}
+                            onPress={() => this.props.navigation.navigate('PokemonSearch', 
+                                {pokemonName: item.name}
+                            )}
+                        />}
+                    keyExtractor ={(item, index) => index.toString()}
+                />
+            </ScrollView>
 
         return (
             <View style={styles.container}>
