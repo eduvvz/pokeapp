@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { Platform, StyleSheet, Text, View, TextInput, Image } from 'react-native';
+import { Platform, StyleSheet, Text, View, TextInput, Image, FlatList } from 'react-native';
 import Header from '../components/Header'
 import Input from '../components/Input'
 import CardPokemon from '../components/CardPokemon'
+import CardStats from '../components/CardStats'
 import axios from 'axios'
 import { server } from '../common'
 
@@ -12,20 +13,18 @@ class PokemonShared extends Component {
     loading: false,
     pokemonName: '',
     pokemonSearch: null,
-    showPokemon: false
   }
 
   handlerInput = async pokemonName => {
 
-    pokemonName = pokemonName.toLowerCase()
     this.setState({pokemonName})
+    const pokemonNameFormated = pokemonName.toLowerCase()
 
-    if(pokemonName.length > 0){
+    if(pokemonNameFormated.length > 0){
       try {
-        const res = await axios.get(`${server}/pokemon/${pokemonName}`)
+        const res = await axios.get(`${server}/pokemon/${pokemonNameFormated}`)
         this.setState({pokemonSearch: res.data})
         this.setState({showPokemon: true})
-        console.log(this.state.pokemonSearch)
       } catch (error) {
         console.log(error)
       }
@@ -33,19 +32,17 @@ class PokemonShared extends Component {
   }
 
   handlerRender = () => {
-    if(this.state.pokemonSearch){
-      console.log(this.state.pokemonSearch.sprites.front_default);
-    }
     if(this.state.showPokemon) {
       return <View style={styles.containerPokemon}>
         <View style={styles.pokemon}>
-          <View style={styles.containerImg}>
-            <Image 
-              source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
-              style={styles.pokemonImg} 
+          <View style={styles.containerStats}>
+            <FlatList 
+              data={this.state.pokemonSearch.stats}
+              renderItem={({item}) => <CardStats {...item} />}
+              keyExtractor ={(item, index) => index.toString()}
+              numColumns={2}
             />
           </View>
-          <View style={styles.containerStats}></View>
         </View>
       </View>
     } else {
@@ -56,6 +53,9 @@ class PokemonShared extends Component {
   }
 
   render() {
+    let imgPokemonUri = this.state.pokemonSearch ? {uri: this.state.pokemonSearch.sprites.front_default} : null
+    const imgJsx = <Image source={imgPokemonUri} style={styles.pokemonImg} />
+
     return (
       <View style={styles.container}>
         <Header />
@@ -64,6 +64,7 @@ class PokemonShared extends Component {
               onChangeText={pokemonName => this.handlerInput(pokemonName)}
               value={this.state.pokemonName} />
         </View>
+        { this.state.pokemonSearch ? imgJsx : null }
         { this.handlerRender() }
       </View>
     );
@@ -87,18 +88,14 @@ const styles = StyleSheet.create({
     pokemon: {
       flex: 1
     },
-    containerImg: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
     pokemonImg: {
-      width: 50,
+      height: 100, 
       resizeMode: 'contain'
     },
     containerStats: {
       flex: 3,
-      backgroundColor: 'blue'
+      flexDirection: 'row',
+      justifyContent: 'flex-start'
     }
 })
 
