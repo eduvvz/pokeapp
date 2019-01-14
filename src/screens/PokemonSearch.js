@@ -3,7 +3,7 @@ import { Platform, StyleSheet, Text, View, TextInput, Image, FlatList, ActivityI
 import Header from '../components/Header'
 import Input from '../components/Input'
 import CardPokemon from '../components/CardPokemon'
-import CardStats from '../components/CardStats'
+import Pokemon from '../components/Pokemon'
 import axios from 'axios'
 import { server } from '../common'
 
@@ -48,18 +48,7 @@ class PokemonShared extends Component {
 
   handlerRender = () => {
     if(this.state.showPokemon) {
-      return <View style={styles.containerPokemon}>
-        <View style={styles.pokemon}>
-          <View style={styles.containerStats}>
-            <FlatList 
-              data={this.state.pokemonSearch.stats}
-              renderItem={({item}) => <CardStats {...item} />}
-              keyExtractor ={(item, index) => index.toString()}
-              numColumns={2}
-            />
-          </View>
-        </View>
-      </View>
+      return <Pokemon pokemon={this.state.pokemonSearch}/>
     } else {
       return <View style={styles.containerPokemon}>
         <Text>Não achou</Text>
@@ -68,10 +57,7 @@ class PokemonShared extends Component {
   }
 
   render() {
-    const imgPokemonUri = this.state.pokemonSearch ? {uri: this.state.pokemonSearch.sprites.front_default} : null
-    const imgJsx = <Image source={imgPokemonUri} style={styles.pokemonImg} />
     const loader = <ActivityIndicator style={styles.loading} size="large" color="tintColor" />
-
 
     return (
       <View style={styles.container}>
@@ -81,7 +67,6 @@ class PokemonShared extends Component {
               onChangeText={pokemonName => this.handlerInput(pokemonName)}
               value={this.state.pokemonName} />
         </View>
-        { this.state.pokemonSearch ? imgJsx : null }
         { this.state.loading ? loader : this.handlerRender() }
       </View>
     );
@@ -90,29 +75,14 @@ class PokemonShared extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#F5FCFF'
+      flex: 1,
+      backgroundColor: '#F5FCFF'
     },
     containerInput: {
       flex: 1,
       paddingLeft: 10,
       paddingRight: 10,
       marginTop: 15,
-    },
-    containerPokemon: {
-      flex: 3,
-    },
-    pokemon: {
-      flex: 1
-    },
-    pokemonImg: {
-      height: 100, 
-      resizeMode: 'contain'
-    },
-    containerStats: {
-      flex: 3,
-      flexDirection: 'row',
-      justifyContent: 'flex-start'
     },
 })
 
