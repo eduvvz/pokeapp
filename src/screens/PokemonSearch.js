@@ -13,6 +13,7 @@ class PokemonShared extends Component {
     loading: false,
     pokemonName: '',
     pokemonSearch: null,
+    showPokemon: false
   }
 
   handlerInput = async pokemonName => {
@@ -20,19 +21,6 @@ class PokemonShared extends Component {
     this.setState({pokemonName})
     this.getPokemon(pokemonName.toLowerCase());
   }
-
-  componentDidMount(){
-    console.log('montou')
-  }
-
-  /*getParamsNavigation = () => {
-    const { navigation } = this.props;
-    let pokemonName = navigation.getParam('pokemonName', '')
-    if(pokemonName.length > 0){
-      this.setState({pokemonName}).then(()=>{pokemonName = ''})
-      console.log(this.state)
-    }
-  }*/
 
   getPokemon = async name => {
     if(name.length > 0){
@@ -61,7 +49,7 @@ class PokemonShared extends Component {
 
     return (
       <View style={styles.container}>
-        <Header />
+        <Header onPress={() => this.props.navigation.navigate('Menu')}/>
         <View style={styles.containerInput}>
           <Input icon='search' placeholder='Buscar Pokemon...' style={styles.input}
               onChangeText={pokemonName => this.handlerInput(pokemonName)}
@@ -74,16 +62,19 @@ class PokemonShared extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#F5FCFF'
-    },
-    containerInput: {
-      flex: 1,
-      paddingLeft: 10,
-      paddingRight: 10,
-      marginTop: 15,
-    },
+  containerPokemon: {
+    flex: 3,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF'
+  },
+  containerInput: {
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginTop: 15,
+  },
 })
 
 export default PokemonShared

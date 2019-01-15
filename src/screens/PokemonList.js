@@ -49,7 +49,6 @@ class PokemonList extends Component {
 
         return (
             <View style={styles.container}>
-                <Header />
                 { this.state.loading ? loader : list }
             </View>
         )

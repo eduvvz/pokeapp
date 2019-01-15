@@ -1,17 +1,29 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View, Platform, Image } from 'react-native'
+import { StyleSheet, Text, View, Platform, Image, TouchableOpacity } from 'react-native'
 import imgLogo from '../../assets/img/pokebola-go.png'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import { colors } from '../common'
 
-class Header extends Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                <View style={styles.rowContainer}>
+export default props => {
+    return (
+        <View style={styles.container}>
+            <View style={styles.rowContainer}>
+                <View style={{ flex: 1, justifyContent: 'center'}}>
+                    <TouchableOpacity onPress={props.onPress}>
+                        <Icon 
+                            name={'list'} 
+                            size={30} 
+                            style={styles.icon}
+                        />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flex: 2 }}>
                     <Image source={imgLogo} style={styles.image} />
                 </View>
+                <View style={{ flex: 1 }}></View>
             </View>
-        )
-    }
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -23,13 +35,14 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     rowContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
+        flexDirection: 'row'
     },
     image: {
         width: 70,
         resizeMode: 'contain',
+        alignSelf: 'center'
     },
+    icon: {
+        color: colors.firstColor.hex
+    }
 })
-
-export default Header

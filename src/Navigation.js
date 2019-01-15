@@ -1,11 +1,11 @@
 import React from 'react'
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation'
-
+import { createStackNavigator, createAppContainer } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import PokemonList from './screens/PokemonList'
 import PokemonSearch from './screens/PokemonSearch'
 import Profile from './screens/Profile'
+import Menu from './screens/Menu'
 
 const MenuRoutes = {
     PokemonSearch: {
@@ -13,8 +13,6 @@ const MenuRoutes = {
         screen: PokemonSearch,
         navigationOptions: {
             title: 'Pokemon Search',
-            tabBarIcon: ({ tintColor }) =>
-                <Icon name='search' size={30} color={tintColor} />
         }
     },
     PokemonList: {
@@ -22,8 +20,6 @@ const MenuRoutes = {
         screen: PokemonList,
         navigationOptions: {
             title: 'Pokemon List',
-            tabBarIcon: ({ tintColor }) =>
-                <Icon name='list' size={30} color={tintColor} />
         }
     },
     Profile: {
@@ -31,20 +27,21 @@ const MenuRoutes = {
         screen: Profile,
         navigationOptions: {
             title: 'Profile',
-            tabBarIcon: ({ tintColor }) =>
-                <Icon name='user' size={30} color={tintColor} />
         }
+    },
+    Menu: {
+        name: 'Menu',
+        screen: Menu
     }
 }
 
-const MenuConfig = {
+const MenuNavigator = createStackNavigator(MenuRoutes, {
     initialRouteName: 'PokemonSearch',
-    tabBarOptions: {
-        showLabel: false,
-    },
-}
-
-const MenuNavigator = createBottomTabNavigator(MenuRoutes, MenuConfig)
+    headerMode: 'none',
+    navigationOptions: {
+        headerVisible: false,
+    }
+})
 const App = createAppContainer(MenuNavigator);
 
 export default App
