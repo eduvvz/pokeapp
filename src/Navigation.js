@@ -6,6 +6,7 @@ import PokemonList from './screens/PokemonList'
 import PokemonSearch from './screens/PokemonSearch'
 import Profile from './screens/Profile'
 import Menu from './screens/Menu'
+import PokemonInternal from './screens/PokemonInternal'
 
 const MenuRoutes = {
     PokemonSearch: {
@@ -32,6 +33,10 @@ const MenuRoutes = {
     Menu: {
         name: 'Menu',
         screen: Menu
+    },
+    PokemonInternal: {
+        name: 'PokemonInternal',
+        screen: PokemonInternal
     }
 }
 

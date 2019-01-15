@@ -11,7 +11,7 @@ export default props => {
                 <View style={{ flex: 1, justifyContent: 'center'}}>
                     <TouchableOpacity onPress={props.onPress}>
                         <Icon 
-                            name={'list'} 
+                            name={props.isMenu ? 'list' : 'chevron-left'} 
                             size={30} 
                             style={styles.icon}
                         />
@@ -29,7 +29,7 @@ export default props => {
 const styles = StyleSheet.create({
     container: {
         marginTop: Platform.OS === 'ios' ? 20 : 0,
-        padding: 10,
+        padding: 13,
         borderBottomWidth: 1,
         borderColor: '#BBB',
         width: '100%',
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     image: {
-        width: 70,
+        width: 90,
         resizeMode: 'contain',
         alignSelf: 'center'
     },

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Platform, StyleSheet, Text, View, ActivityIndicator, ScrollView, FlatList, Button} from 'react-native'
+import {Platform, StyleSheet, Text, View, ActivityIndicator, ScrollView, FlatList } from 'react-native'
 import Header from '../components/Header'
 import { server } from '../common'
 import axios from 'axios'
@@ -39,9 +39,7 @@ class PokemonList extends Component {
                     renderItem={({item}) => 
                         <CardPokemon 
                             {...item}
-                            onPress={() => this.props.navigation.navigate('PokemonSearch', 
-                                {pokemonName: item.name}
-                            )}
+                            onPress={() => this.props.navigation.navigate('PokemonInternal', {pokemonName: item.name})}
                         />}
                     keyExtractor ={(item, index) => index.toString()}
                 />
@@ -49,7 +47,7 @@ class PokemonList extends Component {
 
         return (
             <View style={styles.container}>
-                <Header onPress={() => this.props.navigation.navigate('Menu')}/>
+                <Header onPress={() => this.props.navigation.navigate('Menu')} isMenu={true}/>
                 { this.state.loading ? loader : list }
             </View>
         )

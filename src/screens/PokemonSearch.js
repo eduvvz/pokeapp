@@ -53,7 +53,7 @@ class PokemonShared extends Component {
 
     return (
       <View style={styles.container}>
-        <Header onPress={() => this.props.navigation.navigate('Menu')}/>
+        <Header onPress={() => this.props.navigation.navigate('Menu')} isMenu={true} />
         <View style={styles.containerInput}>
           <Input icon='search' placeholder='Buscar Pokemon...' style={styles.input}
               onChangeText={pokemonName => this.handlerInput(pokemonName)}
