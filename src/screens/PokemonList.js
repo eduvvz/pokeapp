@@ -49,6 +49,7 @@ class PokemonList extends Component {
 
         return (
             <View style={styles.container}>
+                <Header onPress={() => this.props.navigation.navigate('Menu')}/>
                 { this.state.loading ? loader : list }
             </View>
         )

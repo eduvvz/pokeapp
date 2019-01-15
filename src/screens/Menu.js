@@ -9,11 +9,15 @@ class Menu extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.containerRow}>
-                    <TouchableOpacity style={styles.box}>
+                    <TouchableOpacity style={styles.box} 
+                        onPress={() => this.props.navigation.navigate('PokemonSearch')}
+                    >
                         <Text style={styles.text}>Procurar Pokemon</Text>
                         <Icon style={styles.icon} name={'search'} size={25}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.box}>
+                    <TouchableOpacity style={styles.box} 
+                        onPress={() => this.props.navigation.navigate('PokemonList')}
+                    >
                         <Text style={styles.text}>Nossos Pokemons</Text>
                         <Icon style={styles.icon} name={'list'} size={25}/>
                     </TouchableOpacity>
@@ -23,7 +27,9 @@ class Menu extends Component {
                         <Text style={styles.text}>Comparar</Text>
                         <Icon style={styles.icon} name={'bolt'} size={25}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.box}>
+                    <TouchableOpacity style={styles.box} 
+                        onPress={() => this.props.navigation.navigate('Profile')}
+                    >
                         <Text style={styles.text}>Perfil</Text>
                         <Icon style={styles.icon} name={'user'} size={25}/>
                     </TouchableOpacity>

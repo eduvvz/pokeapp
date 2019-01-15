@@ -6,6 +6,7 @@ import CardPokemon from '../components/CardPokemon'
 import Pokemon from '../components/Pokemon'
 import axios from 'axios'
 import { server } from '../common'
+import imgPokebola from '../../assets/img/pokebola.png';
 
 class PokemonShared extends Component {
 
@@ -39,7 +40,10 @@ class PokemonShared extends Component {
       return <Pokemon pokemon={this.state.pokemonSearch}/>
     } else {
       return <View style={styles.containerPokemon}>
-        <Text>Não achou</Text>
+        <Image 
+          source={imgPokebola} 
+          style={{ width: 100, height: 100, resizeMode: 'contain', alignSelf: 'center' }}
+        />
       </View>
     }
   }

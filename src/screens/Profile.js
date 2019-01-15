@@ -6,7 +6,7 @@ class Profile extends Component {
   render() {
     return (
       <View>
-        <Header />
+        <Header onPress={() => this.props.navigation.navigate('Menu')}/>
       </View>
     );
   }
