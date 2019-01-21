@@ -8,6 +8,7 @@ import axios from 'axios'
 import { server } from '../common'
 
 class PokemonInternal extends Component {
+    
     state = {
         pokemon: null,
         loading: true
@@ -20,13 +21,13 @@ class PokemonInternal extends Component {
 
     getPokemon = async name => {
         if(name.length > 0){
-        try {
-            const res = await axios.get(`${server}/pokemon/${name}`)
-            this.setState({ pokemon: res.data, loading: false })
-        } catch (error) {
-            this.setState({ pokemon: null, loading: false })
-            console.log(error)
-        }
+            try {
+                const res = await axios.get(`${server}pokemon/${name}`)
+                this.setState({ pokemon: res.data, loading: false })
+            } catch (error) {
+                this.setState({ pokemon: null, loading: false })
+                console.log(error)
+            }
         }
     }
 

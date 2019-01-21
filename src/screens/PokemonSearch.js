@@ -26,6 +26,7 @@ class PokemonShared extends Component {
   getPokemon = async name => {
     if(name.length > 0){
       try {
+        console.log(`${server}pokemon/${name}`)
         const res = await axios.get(`${server}/pokemon/${name}`)
         this.setState({ pokemonSearch: res.data, showPokemon: true, loading: false })
       } catch (error) {

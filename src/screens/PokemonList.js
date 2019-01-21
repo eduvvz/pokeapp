@@ -18,7 +18,7 @@ class PokemonList extends Component {
 
     getPokemons = async () => {
         try {
-            const res = await axios.get(`${server}/pokemon`)
+            const res = await axios.get(`${server}pokemon`)
             const pokemons = res.data.results.filter((item, index) => {
                 if(index < 100){
                     return item
